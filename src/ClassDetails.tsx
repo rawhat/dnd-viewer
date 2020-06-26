@@ -16,21 +16,17 @@ import { Proficiencies } from "./Proficiencies"
 import { useQuery } from "./useQuery";
 
 interface ClassDetailsProps {
-  selectedClass?: string;
+  selectedClass: string;
 }
 
 export const ClassDetails: React.FC<ClassDetailsProps> = ({selectedClass}) => {
-
-  const selectClassDetails = useMemo(() => {
-    if (!selectedClass) {
-      return;
-    }
-    return select<classData>('*')
+  const selectClassDetails = useMemo(() =>
+    select<classData>('*')
       .from('classes')
       .where(({name}) => name === selectedClass)
-  }, [selectedClass]);
+  , [selectedClass]);
 
-  const [classDetailsRow, _detailError] = useQuery<classData>(selectClassDetails);
+  const [classDetailsRow] = useQuery<classData>(selectClassDetails);
   const classDetails = classDetailsRow ? classDetailsRow[0] : undefined;
 
   if (!classDetails) {

@@ -47,7 +47,7 @@ export const SimpleTable = <T,>(
           <TableRow key={`row-${id}`}>
             {headers.map(({key}) => (
               <TableDataCell key={`row-${id}-${key}`}>
-                {row[key]}
+                {row[key] !== undefined ? row[key] + '' : null}
               </TableDataCell>
             ))}
           </TableRow>

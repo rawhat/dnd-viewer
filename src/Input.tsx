@@ -32,3 +32,24 @@ export function Checkbox({
     </>
   )
 }
+
+interface TextInputProps {
+  disabled?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function TextInput({
+  disabled = false,
+  value,
+  onChange,
+}: TextInputProps) {
+  return (
+    <input
+      disabled={disabled}
+      type='text'
+      onChange={e => onChange(e.target.value)}
+      value={value}
+    />
+  )
+}

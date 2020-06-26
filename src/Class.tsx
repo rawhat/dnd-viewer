@@ -6,6 +6,7 @@ import { classData } from "./features/classes";
 import { select } from "./features/query";
 
 import { ClassDetails } from "./ClassDetails";
+import { SpellList } from "./SpellList";
 import { useQuery } from "./useQuery";
 
 export const Class = () => {
@@ -16,7 +17,8 @@ export const Class = () => {
       .from('classes')
   , [])
 
-  const [classNames, _nameError] = useQuery<classData, 'name'>(selectNames);
+  const [classNames] = useQuery<classData, 'name'>(selectNames);
+
   return (
     <div>
       {classNames && (
@@ -34,7 +36,12 @@ export const Class = () => {
           </select>
         </div>
       )}
-      <ClassDetails selectedClass={selectedClass} />
+      {selectedClass && (
+        <>
+          <ClassDetails selectedClass={selectedClass} />
+          <SpellList selectedClass={selectedClass} />
+        </>
+      )}
     </div>
   )
 }
