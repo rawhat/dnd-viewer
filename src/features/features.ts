@@ -6,4 +6,9 @@ export { features };
 
 export type feature = typeof features[0];
 
+export interface Feature {
+  table: 'features';
+  row: feature;
+}
+
 export const init = () => initialize<feature>('features', features);

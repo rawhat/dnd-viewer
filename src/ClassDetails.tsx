@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 
-import { classData } from "./features/classes";
 import { select } from "./features/query";
 
 import {
@@ -21,12 +20,12 @@ interface ClassDetailsProps {
 
 export const ClassDetails: React.FC<ClassDetailsProps> = ({selectedClass}) => {
   const selectClassDetails = useMemo(() =>
-    select<classData>('*')
+    select<'classes'>('*')
       .from('classes')
       .where(({name}) => name === selectedClass)
   , [selectedClass]);
 
-  const [classDetailsRow] = useQuery<classData>(selectClassDetails);
+  const [classDetailsRow] = useQuery<'classes'>(selectClassDetails);
   const classDetails = classDetailsRow ? classDetailsRow[0] : undefined;
 
   if (!classDetails) {

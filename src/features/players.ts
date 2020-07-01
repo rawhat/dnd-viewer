@@ -9,7 +9,7 @@ interface Attributes {
   charisma: number;
 }
 
-interface Player {
+export interface player {
   alignment: string;
   attributes: Attributes;
   class: string;
@@ -21,4 +21,9 @@ interface Player {
   memorized_spells: string[];
 }
 
-export const init = () => initialize<Player>('players');
+export interface Player {
+  table: 'players';
+  row: player;
+}
+
+export const init = () => initialize<player>('players');

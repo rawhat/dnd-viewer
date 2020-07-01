@@ -6,4 +6,9 @@ export { levels };
 
 export type level = typeof levels[0];
 
+export interface Level {
+  table: 'levels';
+  row: level;
+}
+
 export const init = () => initialize<level>('levels', levels);

@@ -6,4 +6,9 @@ export { spells };
 
 export type spell = typeof spells[0];
 
+export interface Spell {
+  table: 'spells';
+  row: spell;
+}
+
 export const init = () => initialize<spell>('spells', spells);

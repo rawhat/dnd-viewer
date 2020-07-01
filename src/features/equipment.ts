@@ -6,4 +6,9 @@ export { equipments };
 
 export type equipment = typeof equipments[0];
 
+export interface Equipment {
+  table: 'equipment';
+  row: equipment;
+}
+
 export const init = () => initialize<equipment>('equipment', equipments);

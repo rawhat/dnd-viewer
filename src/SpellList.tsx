@@ -28,7 +28,7 @@ export const SpellList: React.FC<SpellListProps> = ({selectedClass}) => {
   const [filter, setFilter, filterValue] = useDebounce<string>(200);
 
   const selectSpells = useMemo(() =>
-    select<spell>('*')
+    select<'spells'>('*')
       .from('spells')
       .where(spell => spell.classes.some(({name}) => name === selectedClass))
       .where(spell =>

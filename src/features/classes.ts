@@ -6,4 +6,9 @@ export { classes }
 
 export type classData = typeof classes[0];
 
+export interface Class {
+  table: 'classes';
+  row: classData;
+}
+
 export const init = () => initialize<classData>('classes', classes);

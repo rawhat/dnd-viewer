@@ -1,23 +1,25 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { useState } from "react";
+import {useMemo} from "react";
+import {useState} from "react";
 
-import { classData } from "./features/classes";
-import { select } from "./features/query";
+import {select} from "./features/query";
 
-import { ClassDetails } from "./ClassDetails";
-import { SpellList } from "./SpellList";
-import { useQuery } from "./useQuery";
+import {ClassDetails} from "./ClassDetails";
+import {SpellList} from "./SpellList";
+import {useQuery} from "./useQuery";
 
 export const Class = () => {
   const [selectedClass, setSelectedClass] = useState<string>();
 
-  const selectNames = useMemo(() =>
-    select<classData, 'name'>(['name'])
+  const selectClassData = useMemo(() =>
+    select<'classes'>('*')
       .from('classes')
-  , [])
+      .join('spells', (classRow, spellRow) =>
+        spellRow.classes.some(({name}) => name === classRow.name)
+      )
+    , [])
 
-  const [classNames] = useQuery<classData, 'name'>(selectNames);
+  const [classNames] = useQuery<'classes'>(selectClassData);
 
   return (
     <div>

@@ -2,13 +2,14 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import { DatabaseTables } from "./features";
 import { Query } from "./features/query";
 
 import { dbContext } from "./dbContext";
 
-export function useQuery<T, K extends keyof T = keyof T>(
+export function useQuery<T extends keyof DatabaseTables, K extends keyof DatabaseTables[T]['row'] = keyof DatabaseTables[T]['row']>(
   query?: Query<T, K>
-): [Pick<T, K>[] | undefined, Error | undefined] {
+): [Pick<DatabaseTables[T]['row'], K>[] | undefined, Error | undefined] {
   const [results, setResults] = useState();
   const [error, setError] = useState();
   const db = useContext(dbContext);
@@ -16,7 +17,7 @@ export function useQuery<T, K extends keyof T = keyof T>(
   useEffect(() => {
     setError(undefined);
     if (db && query?.source) {
-      db[query.source].execute(query)
+      query.run(db)
         .then(setResults)
         .catch(setError)
     }
